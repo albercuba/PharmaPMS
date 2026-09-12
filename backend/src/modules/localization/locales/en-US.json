@@ -1,0 +1,21 @@
+{
+  "errors": {
+    "validation": "Some fields need attention.",
+    "invalidEmail": "Enter a valid email address.",
+    "required": "This field is required.",
+    "tooShort": "This value is too short.",
+    "invalidFormat": "This value has an invalid format.",
+    "invalidCredentials": "The email or password is incorrect.",
+    "userInactive": "This user account is inactive.",
+    "accountLocked": "This account is temporarily locked. Try again later.",
+    "authenticationRequired": "Authentication is required.",
+    "forbidden": "You do not have permission to perform this action.",
+    "alreadyExists": "This resource already exists.",
+    "internal": "An unexpected error occurred.",
+    "inventoryRule": "This inventory operation cannot be completed.",
+    "purchasingRule": "This purchasing operation cannot be completed.",
+    "posRule": "This sale cannot be completed.",
+    "patientRule": "This patient operation cannot be completed.",
+    "prescriptionRule": "This prescription or dispensing operation cannot be completed."
+  }
+}

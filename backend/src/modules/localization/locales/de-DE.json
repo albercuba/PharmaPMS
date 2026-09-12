@@ -1,0 +1,21 @@
+{
+  "errors": {
+    "validation": "Einige Felder müssen überprüft werden.",
+    "invalidEmail": "Geben Sie eine gültige E-Mail-Adresse ein.",
+    "required": "Dieses Feld ist erforderlich.",
+    "tooShort": "Dieser Wert ist zu kurz.",
+    "invalidFormat": "Dieses Format ist ungültig.",
+    "invalidCredentials": "E-Mail-Adresse oder Passwort ist falsch.",
+    "userInactive": "Dieses Benutzerkonto ist inaktiv.",
+    "accountLocked": "Dieses Konto ist vorübergehend gesperrt. Versuchen Sie es später erneut.",
+    "authenticationRequired": "Eine Anmeldung ist erforderlich.",
+    "forbidden": "Sie sind nicht berechtigt, diese Aktion auszuführen.",
+    "alreadyExists": "Diese Ressource existiert bereits.",
+    "internal": "Ein unerwarteter Fehler ist aufgetreten.",
+    "inventoryRule": "Dieser Lagerbestand Vorgang kann nicht abgeschlossen werden.",
+    "purchasingRule": "Dieser Einkaufsvorgang kann nicht abgeschlossen werden.",
+    "posRule": "Dieser Verkauf kann nicht abgeschlossen werden.",
+    "patientRule": "Dieser Patientenvorgang kann nicht abgeschlossen werden.",
+    "prescriptionRule": "Dieser Rezept- oder Abgabevorgang kann nicht abgeschlossen werden."
+  }
+}
