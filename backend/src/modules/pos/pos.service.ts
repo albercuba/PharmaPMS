@@ -137,6 +137,8 @@ export async function completeSale(
     organizationId: string;
     actorUserId: string;
     locationId: string;
+    registerId?: string;
+    cashShiftId?: string;
     receiptNumber?: string;
     currency: string;
     items: Array<{
@@ -158,6 +160,18 @@ export async function completeSale(
   if (!input.items.length || !input.payments.length)
     throw new PosBusinessError('A sale requires items and payments');
   return db.$transaction(async (tx) => {
+    if (input.cashShiftId) {
+      const shift = await tx.cashShift.findFirst({
+        where: {
+          id: input.cashShiftId,
+          organizationId: input.organizationId,
+          locationId: input.locationId,
+          registerId: input.registerId,
+          status: 'OPEN',
+        },
+      });
+      if (!shift) throw new PosBusinessError('An open register shift is required');
+    }
     const products = await tx.product.findMany({
       where: {
         organizationId: input.organizationId,
@@ -229,6 +243,8 @@ export async function completeSale(
         organizationId: input.organizationId,
         locationId: input.locationId,
         cashierUserId: input.actorUserId,
+        registerId: input.registerId,
+        cashShiftId: input.cashShiftId,
         receiptNumber: input.receiptNumber ?? `POS-${Date.now()}`,
         currency: input.currency,
         subtotal,

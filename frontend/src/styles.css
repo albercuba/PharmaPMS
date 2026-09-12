@@ -923,6 +923,67 @@ tr:last-child td {
 .compact-button {
   padding: 0.4rem 0.6rem;
 }
+.pos-shift-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+}
+.pos-shift-controls select,
+.pos-shift-controls input {
+  min-height: 2.15rem;
+  max-width: 9rem;
+  padding: 0.35rem 0.55rem;
+}
+.pos-shift-controls button {
+  min-height: 2.15rem;
+  padding: 0.35rem 0.65rem;
+}
+.payment-list,
+.pos-refund-panel,
+.pos-summary-panel {
+  display: grid;
+  gap: 0.55rem;
+}
+.payment-list {
+  padding-top: 0.35rem;
+}
+.field-label {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.payment-row,
+.refund-fields {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+.payment-row select,
+.payment-row input {
+  min-height: 2.25rem;
+  flex: 1 1 7rem;
+}
+.pos-summary-panel,
+.pos-refund-panel {
+  margin-top: 0.8rem;
+  padding: 1rem;
+}
+.pos-summary-panel p {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  color: var(--text-secondary);
+}
+.refund-fields input {
+  min-height: 2.35rem;
+  min-width: 10rem;
+  flex: 1 1 10rem;
+}
 .pos-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.9fr);
@@ -1108,6 +1169,10 @@ tr:last-child td {
   }
   .pos-layout {
     grid-template-columns: 1fr;
+  }
+  .pos-shift-controls {
+    justify-content: flex-start;
+    margin-top: 0.6rem;
   }
 }
 @media (max-width: 700px) {

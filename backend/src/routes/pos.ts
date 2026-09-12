@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import type { PrismaClient } from '@prisma/client';
-import { requirePermission } from '../modules/identity/authorization.js';
+import { assertLocationAccess, requirePermission } from '../modules/identity/authorization.js';
 import { PERMISSIONS } from '../modules/identity/permissions.js';
 import {
   completeSale,
@@ -9,6 +9,7 @@ import {
   searchSaleProducts,
   voidHeldSale,
 } from '../modules/pos/pos.service.js';
+
 
 const payment = z.object({
   type: z.enum(['CASH', 'CARD', 'MOBILE', 'OTHER']),
@@ -44,12 +45,15 @@ export function registerPosRoutes(app: FastifyInstance, db: PrismaClient) {
     const input = z
       .object({
         locationId: z.string().uuid(),
+        registerId: z.string().uuid(),
+        cashShiftId: z.string().uuid(),
         receiptNumber: z.string().trim().max(80).optional(),
         currency: z.string().length(3),
         items: z.array(saleItem).min(1),
         payments: z.array(payment).min(1),
       })
       .parse(request.body);
+    assertLocationAccess(user, input.locationId);
     const hasDiscount = input.items.some(
       (item) => (item.discountAmount ?? 0) > 0,
     );

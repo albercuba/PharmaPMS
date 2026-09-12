@@ -29,6 +29,8 @@ import { registerPurchasingRoutes } from './routes/purchasing.js';
 import { PurchasingBusinessError } from './modules/purchasing/purchasing.service.js';
 import { PosBusinessError } from './modules/pos/pos.service.js';
 import { registerPosRoutes } from './routes/pos.js';
+import { registerPosRegisterRoutes } from './routes/pos-registers.js';
+import { RegisterBusinessError } from './modules/pos/register.service.js';
 import { registerPatientRoutes } from './routes/patients.js';
 import { PatientBusinessError } from './modules/patients/patients.service.js';
 import { registerPrescriptionRoutes } from './routes/prescriptions.js';
@@ -101,6 +103,11 @@ export function buildApp(config: AppConfig, database?: PrismaClient) {
         .send(
           localizedApiError(request, 'PATIENT_BUSINESS_RULE', 'patientRule'),
         );
+    }
+    if (error instanceof RegisterBusinessError) {
+      return reply
+        .code(400)
+        .send(localizedApiError(request, 'POS_REGISTER_RULE', 'posRule'));
     }
     if (error instanceof PosBusinessError) {
       return reply
@@ -191,6 +198,7 @@ export function buildApp(config: AppConfig, database?: PrismaClient) {
       registerInventoryRoutes(instance, prisma);
       registerPurchasingRoutes(instance, prisma);
       registerPosRoutes(instance, prisma);
+      registerPosRegisterRoutes(instance, prisma);
       registerPatientRoutes(instance, prisma);
       registerPrescriptionRoutes(instance, prisma);
       registerDocumentRoutes(instance, prisma);

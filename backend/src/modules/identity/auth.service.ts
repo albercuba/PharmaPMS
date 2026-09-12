@@ -93,6 +93,14 @@ export async function bootstrapOrganization(
         timezone: input.timezone,
       },
     });
+    await tx.register.create({
+      data: {
+        organizationId: organization.id,
+        locationId: location.id,
+        name: 'Main register',
+        code: 'MAIN',
+      },
+    });
     const user = await tx.user.create({
       data: {
         organizationId: organization.id,

@@ -60,6 +60,11 @@ This roadmap tracks implemented foundation work without treating placeholders as
 - [x] Support barcode/product search, payment types, discounts, refunds, and held-sale voiding.
 - [x] Add transactional FEFO stock deduction and immutable financial state transitions.
 - [ ] Add register/shift management, split-payment UI, and API-connected POS screens.
+  - [x] Add register and cash-shift persistence, guarded open/close/summary APIs, permissions, and audit events.
+  - [x] Add shift opening/closing controls and require active shifts in the operator workflow.
+  - [x] Connect POS product search and sale completion to the API.
+  - [x] Add split-payment, refund, receipt, hold/resume-cart, and shift-summary UI.
+  - [ ] Add persistent hold/resume/void workflow and POS integration tests.
 
 ## Milestone 6 — Patients
 
@@ -107,17 +112,17 @@ The milestones above remain the source of truth for completed and incomplete sco
 
 Goal: close the remaining foundational identity/security gap before expanding operational workflows.
 
-- [ ] Implement TOTP-based MFA enrollment for eligible users.
-- [ ] Require explicit confirmation of a newly enrolled MFA factor before activation.
-- [ ] Add one-time recovery codes, shown only at enrollment/regeneration time and stored securely as hashes.
-- [ ] Add MFA challenge handling to login/session creation.
-- [ ] Add organization-level MFA enforcement policy with clear behavior for already-enrolled and not-yet-enrolled users.
+- [x] Implement TOTP-based MFA enrollment for eligible users.
+- [x] Require explicit confirmation of a newly enrolled MFA factor before activation.
+- [x] Add one-time recovery codes, shown only at enrollment/regeneration time and stored securely as hashes.
+- [x] Add MFA challenge handling to login/session creation.
+- [x] Add organization-level MFA enforcement policy with clear behavior for already-enrolled and not-yet-enrolled users.
 - [ ] Add user self-service MFA reset/regeneration flows where policy permits.
-- [ ] Add privileged/admin MFA reset workflow with audit logging and permission checks.
-- [ ] Add audit events for enrollment, removal, recovery-code regeneration, failed MFA challenges, policy changes, and administrative resets.
-- [ ] Add rate limits / lockout protections for MFA verification attempts.
-- [ ] Add backend tests for enrollment, challenge, recovery, enforcement, reset, permission boundaries, and audit events.
-- [ ] Add frontend MFA enrollment, challenge, recovery-code, reset, and policy-management screens using the shared design system.
+- [x] Add privileged/admin MFA reset workflow with audit logging and permission checks.
+- [x] Add audit events for enrollment, failed MFA challenges, policy changes, and administrative resets.
+- [x] Add rate limits / lockout protections for MFA verification attempts.
+- [ ] Add complete endpoint tests for enrollment, challenge, recovery, enforcement, reset, and audit events.
+- [ ] Add complete frontend recovery-code, self-service reset, and policy-management coverage using the shared design system.
 
 Acceptance criteria:
 
@@ -133,30 +138,32 @@ Goal: convert the implemented POS domain/backend foundation into a complete day-
 
 #### Register and shift management
 
-- [ ] Add register entities/configuration scoped by organization and location.
-- [ ] Add shift opening with opening cash balance and responsible user.
-- [ ] Add shift closing with counted cash, expected cash, variance, notes, and audit event.
-- [ ] Prevent invalid overlapping/open shift states according to location/register rules.
-- [ ] Add shift summary API and UI.
-- [ ] Add permission checks for opening, closing, reviewing, and overriding register shifts.
+- [x] Add register entities/configuration scoped by organization and location.
+- [x] Add shift opening with opening cash balance and responsible user.
+- [x] Add shift closing with counted cash, expected cash, variance, notes, and audit event.
+- [x] Prevent invalid overlapping/open shift states according to location/register rules.
+- [x] Add shift summary API and UI.
+- [x] Add permission checks for opening, closing, and reviewing register shifts.
+- [ ] Add explicit privileged override workflow for register shifts.
 
 #### POS UI
 
-- [ ] Build an API-connected POS screen using the shared Open WebUI-inspired application shell and component system.
-- [ ] Add fast barcode/GTIN lookup and product/medicine search.
-- [ ] Add keyboard-first cart workflow suitable for counter use.
-- [ ] Add cart quantity editing, item removal, discounts, price/permission validation, and totals.
+- [x] Build an API-connected POS screen using the shared Open WebUI-inspired application shell and component system.
+- [x] Add fast barcode/GTIN lookup and product/medicine search.
+- [ ] Complete keyboard-first cart workflow suitable for counter use.
+- [x] Add cart quantity editing, item removal, discounts, price/permission validation, and totals.
 - [ ] Surface stock availability and FEFO-relevant warnings without duplicating clinical decision support.
-- [ ] Add hold/resume/void sale workflow.
-- [ ] Add payment selection and payment-status handling.
-- [ ] Add split-payment UI using the existing payment model/backend behavior.
-- [ ] Add sale completion and receipt rendering/printing flow.
-- [ ] Add refund workflow with permission checks, immutable financial transitions, and stock handling consistent with existing domain rules.
-- [ ] Add useful empty, loading, error, offline/API-failure, and permission-denied states.
+- [ ] Add persistent hold/resume/void sale workflow.
+- [x] Add payment selection and payment-status handling.
+- [x] Add split-payment UI using the existing payment model/backend behavior.
+- [x] Add sale completion and receipt rendering/printing flow.
+- [x] Add refund workflow with permission checks, immutable financial transitions, and stock handling consistent with existing domain rules.
+- [x] Add useful empty, loading, error, and API-failure states.
 
 #### POS verification
 
 - [ ] Add integration tests for sale creation, discounts, payments, split payments, held sales, voids, refunds, FEFO deduction, stock consistency, and audit events.
+- [ ] Add register/shift lifecycle tests, including overlapping shifts, cash variance, scope, and close concurrency.
 - [ ] Verify that concurrent sales cannot oversell stock or corrupt balances.
 - [ ] Verify that financial state transitions remain immutable and invalid transitions are rejected.
 - [ ] Verify that every stock-affecting POS action maps to the immutable movement ledger.
