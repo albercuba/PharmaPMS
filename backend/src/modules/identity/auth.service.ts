@@ -113,6 +113,7 @@ export async function bootstrapOrganization(
           code,
           description: `Permission: ${code}`,
         })),
+      skipDuplicates: true,
     });
     const permissions = await tx.permission.findMany();
 
