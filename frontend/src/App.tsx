@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import i18n, {
   applyDocumentLocale,
@@ -64,6 +64,7 @@ export function App() {
   const [activeView, setActiveView] = useState<View>("dashboard");
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>(
     { stock: false, sales: false, purchase: false, reports: false },
   );
@@ -88,6 +89,20 @@ export function App() {
     void i18n
       .changeLanguage(nextLocale)
       .then(() => applyDocumentLocale(nextLocale));
+  }
+
+  function handleGlobalSearch(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) return;
+    const destination: View = query.includes("patient") || query.includes("phone")
+      ? "patients"
+      : query.includes("prescription") || query.includes("rx")
+        ? "prescriptions"
+        : query.includes("sale") || query.includes("cart") || query.includes("checkout")
+          ? "pos"
+          : "catalog";
+    navigate(destination);
   }
 
   return (
@@ -211,14 +226,17 @@ export function App() {
           >
             <Icon name="chevron" />
           </button>
-          <label className="navbar-search">
+          <form className="navbar-search" onSubmit={handleGlobalSearch} role="search">
             <span>{t("dashboard.searchPlaceholder")}</span>
             <Icon name="search" />
             <input
               type="search"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
               placeholder={t("dashboard.searchPlaceholder")}
+              aria-label={t("dashboard.searchPlaceholder")}
             />
-          </label>
+          </form>
           <div className="header-actions">
             <button
               className="icon-button"
