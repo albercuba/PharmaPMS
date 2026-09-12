@@ -15,13 +15,17 @@ The API exposes:
 
 - `GET /api/v1/health` — process liveness
 - `GET /api/v1/ready` — database readiness check
+- `GET /api/v1/auth/bootstrap/status` — determines whether first-time setup is required
 - `POST /api/v1/auth/bootstrap` — one-time first organization/admin setup
 - `POST /api/v1/auth/login` — Argon2id password verification and session cookie
+- `POST /api/v1/auth/login/mfa` — completes an MFA login challenge
 - `POST /api/v1/auth/logout` — server-side session revocation
 - `GET /api/v1/auth/me` — current authenticated user
 - `GET/PATCH /api/v1/organization` — authorized pharmacy configuration
 - `GET /api/v1/locations` — authorized organization locations
 - `GET/POST/PATCH /api/v1/users` — authorized user management
+- `GET /api/v1/permissions` and `PUT /api/v1/roles/:roleId/permissions` — role permission management
+- `POST /api/v1/users/:userId/mfa/reset` — audited administrator MFA reset
 - `GET/POST/PATCH /api/v1/catalog/products` — authorized product catalog operations
 - `GET /api/v1/inventory` — current balances by batch/location/state
 - `GET /api/v1/inventory/movements` — immutable movement history
@@ -53,4 +57,4 @@ The API exposes:
 
 Sessions are stored as SHA-256 token hashes in PostgreSQL and exposed to browsers only through an HTTP-only SameSite cookie.
 
-Use `npm run db:migrate` during development to create a migration, and `npm run db:deploy` for committed migrations in deployments. The API now exposes catalog, inventory, supplier, and purchasing foundations. POS, patient, prescription, and dispensing workflows remain later milestones.
+Use `npm run db:migrate` during development to create a migration, and `npm run db:deploy` for committed migrations in deployments. The Docker API container runs `db:deploy` before starting, so a fresh Compose installation initializes its schema before showing the setup wizard. The API now exposes catalog, inventory, supplier, and purchasing foundations. POS, patient, prescription, and dispensing workflows remain later milestones.

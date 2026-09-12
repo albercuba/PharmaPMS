@@ -31,7 +31,7 @@ cp .env.example .env
 docker compose up --build
 ```
 
-Apply migrations from the backend directory with `npm run db:deploy`.
+The Docker API container applies committed migrations automatically before starting. For manual/local API runs, apply migrations from the backend directory with `npm run db:deploy`.
 
 ## Frontend
 
