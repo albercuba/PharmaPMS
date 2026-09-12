@@ -30,6 +30,7 @@
   --navbar-height: 50px;
   --accent: #2490ef;
   --accent-hover: #1a75c4;
+  --button-text: #1f272e;
   --danger: #b42318;
   --warning: #a15c00;
   --success: #087443;
@@ -51,6 +52,7 @@
   --overlay: rgb(0 0 0 / 65%);
   --accent: #5fb1f7;
   --accent-hover: #2490ef;
+  --button-text: #eef1f3;
 }
 * {
   box-sizing: border-box;
@@ -520,12 +522,20 @@ textarea:focus-visible {
 }
 .locale-picker select {
   max-width: 8rem;
-  padding: 0.4rem 0.55rem;
-  color: var(--text-secondary);
-  background: transparent;
-  border: 1px solid transparent;
+  padding: 0.4rem 1.7rem 0.4rem 0.55rem;
+  color: var(--text-primary);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--radius-md);
   font-size: 0.78rem;
+}
+select {
+  color: var(--text-primary);
+  background-color: var(--input-bg);
+}
+select option {
+  color: var(--text-primary);
+  background: var(--surface);
 }
 .locale-picker select:hover {
   background: var(--surface-hover);
@@ -540,7 +550,15 @@ textarea:focus-visible {
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 1.3rem;
+  margin-bottom: 1.5rem;
+}
+.topbar > button {
+  flex: 0 0 auto;
+  margin-inline-start: 0.5rem;
+}
+.panel-heading > button {
+  flex: 0 0 auto;
+  margin-inline-start: 0.5rem;
 }
 .eyebrow {
   margin: 0 0 0.35rem;
@@ -603,6 +621,14 @@ p {
   border-radius: var(--radius-md);
   outline: none;
 }
+.command-bar input,
+.catalog-toolbar input,
+.form-field input,
+.form-field textarea,
+.pos-search input,
+.pos-total input {
+  color-scheme: inherit;
+}
 .command-bar input {
   border-color: transparent;
 }
@@ -631,13 +657,28 @@ button.ghost-button,
 }
 button:not(.nav-item):not(.brand):not(.icon-button):not(.account-row):not(
     .new-action
-  ) {
+  ):not(.primary-action):not(.ghost-button):not(.text-button) {
+  color: var(--button-text);
   background: var(--surface-hover);
 }
 button:not(.nav-item):not(.brand):not(.icon-button):not(.account-row):not(
     .new-action
-  ):hover {
+  ):not(.primary-action):not(.ghost-button):not(.text-button):hover {
+  color: var(--text-primary);
   background: var(--surface-active);
+}
+.primary-action:hover {
+  color: #fff;
+  background: var(--accent-hover);
+}
+.ghost-button {
+  color: var(--text-primary);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.ghost-button:hover {
+  color: var(--text-primary);
+  background: var(--surface-hover);
 }
 .metric-grid {
   display: grid;
@@ -848,8 +889,13 @@ tr:last-child td {
 .editor-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 0.5rem;
-  margin-top: 1rem;
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+  padding-top: 0.25rem;
+}
+.editor-actions button + button,
+.header-actions button + button {
+  margin-inline-start: 0.15rem;
 }
 .catalog-modal-backdrop {
   position: fixed;
